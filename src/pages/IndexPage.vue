@@ -4,12 +4,18 @@
       <h3>漂流瓶 - Drift bottle</h3>
       <hr>
       <div>当前有 {{ totalOfBottle }} 只瓶子孤独地漂浮在海洋之上...</div>
-      <div>但是呢！</div>
+      <div>
+        但是呢！你有拯救他们的力量！
+        <q-tooltip transition-show="flip-right" transition-hide="flip-left"
+          style="font-size: 16px; background-color: white; color: black;" anchor="center middle" self="center middle">
+          你是异世界勇者，为了战胜其他人的内心垃圾而存在()
+        </q-tooltip>
+      </div>
       <div>点击下方按钮捞一个 <span>
           “漂流瓶”
           <q-tooltip transition-show="flip-right" transition-hide="flip-left"
             style="font-size: 16px; background-color: white; color: black;" anchor="center middle" self="center middle">
-            读作：提示框
+            别人的垃圾桶
           </q-tooltip>
         </span> 试试吧~</div>
       <div class="q-pa-md q-gutter-sm">
