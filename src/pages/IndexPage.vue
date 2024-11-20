@@ -13,7 +13,7 @@
           </q-tooltip>
         </span> 试试吧~</div>
       <div class="q-pa-md q-gutter-sm">
-        <q-btn push rounded color="primary" label="捞一个！" @click="showNotif" />
+        <q-btn push rounded color="primary" label="捞一个！" @click="cocacola" />
         <q-btn push rounded color="primary" label="丢一个！" @click="showNotif" />
       </div>
     </center>
@@ -55,6 +55,15 @@ export default defineComponent({
         html: true,
         position: 'top-right',
         color: "blue-grey"
+      })
+    },
+    cocacola() {
+      Notify.create({
+        message: '<video src="https://pan.nekogan.com/13271450" autoplay/>',
+        html: true,
+        position: 'top-right',
+        color: "blue-grey",
+        timeout: 2500
       })
     }
   }
