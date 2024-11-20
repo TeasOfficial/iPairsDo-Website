@@ -1,13 +1,39 @@
 import { defineBoot } from '#q-app/wrappers'
 import axios from 'axios'
+import qs from "qs"
+import { Loading, QSpinnerGears } from 'quasar'
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({ baseURL: 'https://api.example.com' })
+const api = axios.create({ baseURL: document.location.protocol + '//api.ipairsdo.xin' })
+api.interceptors.request.use(
+  config => {
+    Loading.show({
+      spinner: QSpinnerGears,
+      html: true,
+      message: '正在努力搬砖中...<br>(如果加载时间过长请刷新页面)'
+    })
+    if (config.method === "post") {
+      config.data = qs.stringify(config.data)
+    }
+    return config
+  },
+  error => {
+    Promise.reject(error)
+  }
+)
+api.interceptors.response.use(
+  response => {
+    Loading.hide();
+    return response;
+  },
+  err => {
+    Loading.show({
+      spinner: QSpinnerGears,
+      html: true,
+      backgroundColor: 'red',
+      message: '哎呀！有些东西出错了！<br>请尝试刷新网页或联系网站管理员！'
+    })
+  }
+)
 
 export default defineBoot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -22,5 +48,3 @@ export default defineBoot(({ app }) => {
 })
 
 export { api }
-
-
