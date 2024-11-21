@@ -5,9 +5,9 @@
     </q-page-container>
     <q-footer reveal>
       <center>
-        Powered by <a @click="cocacola">NekoGan</a>
+        Powered by <a @click="cocacola">NekoGan</a> - v{{ $version }}
         <br>
-        <div class="alert">发现违规内容请及时举报！我们将在第一时间删除相关内容！</div>
+        <div class="alert">发现违规内容请及时举报，避免网站被封禁（举报QQ：25709143）</div>
       </center>
     </q-footer>
   </q-layout>

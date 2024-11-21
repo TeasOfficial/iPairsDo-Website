@@ -20,9 +20,15 @@
         </span> 试试吧~</div>
       <div class="q-pa-md q-gutter-sm">
         <q-btn push rounded color="primary" label="捞一个！" @click="catchABottle()" />
+        <q-btn push rounded color="primary" label="精准打击！" @click="catchbottlewithid = true" />
         <q-btn push rounded color="primary" label="丢一个！" @click="throwbottle = true" />
       </div>
-      <q-btn flat style="color: #FF0080" label=">>> 感谢名单 <<<" @click="spthanks = true" />
+      <div class="q-gutter-sm">
+        <q-btn flat style="color: #FF0080" label="感谢名单" @click="spthanks = true" />
+        <q-btn flat style="color: #FF0800" label="更新履历" @click="showUpdate()" />
+        <q-btn flat style="color: #0080FF" label="GitHub" href="https://github.com/TeasOfficial/iPairsDo-Website"
+          target="_blank" />
+      </div>
     </center>
   </q-page>
 
@@ -69,6 +75,24 @@
       <q-card-actions align="right">
         <q-btn flat label="取消" color="red" v-close-popup />
         <q-btn flat label="发呀的轰！" color="primary" @click="throwbottletosea" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="catchbottlewithid" position="top">
+    <q-card>
+      <q-card-section>
+        <h5>捞指定的漂流瓶</h5>
+        <div style="font-size: 16px;">
+          我从商店购买到了一个高精度捞网，黑心老板收了我十万块钱（bushi
+        </div>
+      </q-card-section>
+      <q-card-section class="q-pt-none">
+        <q-input outlined v-model="bid" label="瓶子id" input-style="font-size: 16px;" />
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn flat label="取消" color="red" v-close-popup />
+        <q-btn flat label="抓！" color="primary" @click="catchABottleById()" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -121,6 +145,7 @@ h6 {
 }
 </style>
 <script>
+import { laThSolid } from '@quasar/extras/line-awesome';
 import { Notify } from 'quasar'
 import { api } from 'src/boot/axios';
 import { defineComponent, ref } from 'vue'
@@ -133,10 +158,12 @@ export default defineComponent({
       donator: [],
       throwbottle: ref(false),
       catchbottle: ref(false),
+      catchbottlewithid: ref(false),
       author: ref("一位不愿透漏姓名的小可爱"),
       text: ref(""),
       totalOfBottle: "",
-      catched: []
+      catched: [],
+      bid: ref("")
     }
   },
   methods: {
@@ -192,6 +219,45 @@ export default defineComponent({
           this.catchbottle = true
         }
       )
+    },
+    catchABottleById() {
+      if (this.bid == "") {
+        return Notify.create({
+          position: 'top-right',
+          type: 'negative',
+          message: "不是哥们？我给你抓两条鱼吧？"
+        })
+      }
+      if (isNaN(Number(this.bid))) {
+        return Notify.create({
+          position: 'top-right',
+          type: 'negative',
+          message: "不是哥们？我给你摘个星星吧？"
+        })
+      }
+      if (!(Number(this.bid) % 1 === 0)) {
+        return Notify.create({
+          position: 'top-right',
+          type: 'negative',
+          message: "请输入整数！"
+        })
+      }
+      this.catchbottlewithid = false
+      this.$api.get("/services/floatbottle/catch/byId?rand=" + this.bid).then(
+        res => {
+          this.catched = res.data
+          this.catchbottle = true
+        }
+      )
+    },
+    showUpdate() {
+      Notify.create({
+        message: "<div>2024-11-21 更新日志</div>" /
+          "",
+        html: true,
+        position: 'top-right',
+        color: "blue-grey"
+      })
     }
   },
   mounted() {
