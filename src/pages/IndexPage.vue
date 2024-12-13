@@ -252,7 +252,7 @@ export default defineComponent({
     },
     showUpdate() {
       Notify.create({
-        message: "<div>2024-11-21 更新日志</div><ol><li>新增了GitHub跳转链接</li><li>新增了更新履历</li><li>现在可以定点打击了（</li></ol>",
+        message: "更新日志的页面在重做啦！>.<",
         html: true,
         position: 'top-right',
         color: "blue-grey"
