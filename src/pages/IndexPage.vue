@@ -106,6 +106,8 @@
         </div>
         <div style="font-size: 12px;">
           瓶子上刻着一行小字 <i>生产日期：{{ catched.time }}</i>
+          <br>
+          IP归属地：{{ catched.ip || "神秘地址" }}
         </div>
       </q-card-section>
       <hr>
@@ -214,7 +216,6 @@ export default defineComponent({
       this.catchbottle = false
       this.$api.get("/services/floatbottle/catch/?rand=" + this.totalOfBottle).then(
         res => {
-          // console.log(res)
           this.catched = res.data
           this.catchbottle = true
         }
