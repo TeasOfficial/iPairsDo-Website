@@ -119,6 +119,7 @@
         <q-btn flat label="给你扔回去！" v-close-popup />
         <q-btn flat label="再捞一个！" color="purple" v-close-popup @click="catchABottle()" />
         <q-btn flat label="我也要扔！" color="primary" v-close-popup @click="throwbottle = true" />
+        <q-btn flat label="取走瓶子" color="primary" v-close-popup @click="funcbuilding()" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -257,6 +258,13 @@ export default defineComponent({
         html: true,
         position: 'top-right',
         color: "blue-grey"
+      })
+    },
+    funcbuilding() {
+      Notify.create({
+        position: 'top-right',
+        type: 'negative',
+        message: "该功能正在开发中..."
       })
     }
   },
